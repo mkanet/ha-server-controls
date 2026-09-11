@@ -18,7 +18,7 @@ import { LitElement, html, css } from "./lit-all.min.js";
 // the browser console after refreshing the panel, the browser is serving a
 // cached older file. Bump the date suffix any time you want to verify a fresh
 // deploy.
-console.info("[server-control] panel module loaded — build 2026-09-08-dialog-guard");
+console.info("[server-control] panel module loaded — build 2026-09-10-layout");
 
 // HA's frontend has already registered some Material Web Components by the time
 // our custom panel loads. Our bundled mwc-button.js inlines its own copies of
@@ -1254,12 +1254,7 @@ class HaPanelServerControl extends LitElement {
   render() {
     if (!this.hass) return html``;
     return html`
-      <hass-subpage
-        .hass=${this.hass}
-        .narrow=${this.narrow}
-        back-path="/config/system"
-        header="Server Controls"
-      >
+      <div class="page">
         <div class="content">
           ${this._loadError
             ? html`<ha-alert alert-type="error">${this._loadError}</ha-alert>`
@@ -1271,7 +1266,7 @@ class HaPanelServerControl extends LitElement {
           </div>
           ${this._renderLogCard()}
         </div>
-      </hass-subpage>
+      </div>
       ${this._hardwareDialog !== null ? this._renderHardwareDialog() : ""}
       ${this._datadiskDialog !== null ? this._renderDatadiskDialog() : ""}
     `;
@@ -1520,15 +1515,33 @@ class HaPanelServerControl extends LitElement {
     return css`
       :host {
         display: block;
+        height: calc(
+          100vh - var(--safe-area-inset-top, 0px) - var(--safe-area-inset-bottom, 0px)
+        );
+        overflow: hidden;
         font-family: var(--ha-font-family-body);
         font-size: var(--ha-font-size-m);
         font-weight: var(--ha-font-weight-normal);
         line-height: var(--ha-line-height-normal);
       }
+      .page {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
 
       /* --- Layout: card grid (verbatim from upstream hassio-style.ts) --- */
-      .content { margin: 8px; color: var(--primary-text-color); }
+      .content {
+        margin: 8px;
+        color: var(--primary-text-color);
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+      }
       .card-group {
+        flex: none;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         grid-gap: 8px;
@@ -1553,6 +1566,13 @@ class HaPanelServerControl extends LitElement {
       ha-card.log-card {
         margin-top: 8px;
         width: 100%;
+        flex: 1;
+        min-height: 240px;
+        display: flex;
+        flex-direction: column;
+      }
+      .log-content {
+        min-height: 0;
       }
       .card-content {
         padding: 0 16px 16px 16px;
@@ -2145,7 +2165,8 @@ class HaPanelServerControl extends LitElement {
         white-space: pre-wrap;
         overflow-wrap: break-word;
         margin: 0;
-        max-height: 600px;
+        flex: 1;
+        min-height: 0;
         overflow-y: auto;
         font-family: var(--ha-font-family-code, ui-monospace, "SFMono-Regular", monospace);
         font-size: var(--ha-font-size-m, 14px);
