@@ -1,5 +1,10 @@
 {
   "config": {
+    "step": {
+      "user": {
+        "title": "Server Controls"
+      }
+    },
     "abort": {
       "not_hassio": "Server Controls requires Home Assistant OS or a Supervised installation.",
       "single_instance_allowed": "Already configured. Only a single configuration possible."
