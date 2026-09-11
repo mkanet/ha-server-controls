@@ -1,0 +1,8 @@
+Server Controls for Home Assistant
+Copyright 2026 MKANET
+
+This product includes software developed as part of the Home Assistant
+frontend (https://github.com/home-assistant/frontend), Apache License 2.0.
+
+It bundles Lit (https://lit.dev), BSD-3-Clause, and @material/mwc-button
+(https://github.com/material-components/material-web), Apache License 2.0.
