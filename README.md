@@ -26,6 +26,8 @@ Adds a **Server Controls** item to the sidebar for Home Assistant admin users. T
 
 ### HACS (recommended)
 
+Server Controls is not yet in the HACS default store, so it has to be added as a custom repository first.
+
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=MKANET&repository=ha-server-controls&category=integration)
 
 1. Open HACS and go to **Integrations**.
